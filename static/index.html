@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Management</title>
+    <!-- Load from FastAPI static mount -->
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Student Management</h1>
+
+      <form id="student-form">
+        <input type="hidden" id="student-id" />
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" required />
+        </div>
+        <div class="field">
+          <label for="age">Age</label>
+          <input id="age" type="number" min="1" required />
+        </div>
+        <div class="field">
+          <label for="grade">Grade</label>
+          <input id="grade" type="text" required />
+        </div>
+        <div class="buttons">
+          <button type="submit">Save</button>
+          <button type="button" id="cancel-edit" class="secondary">Cancel</button>
+        </div>
+      </form>
+
+      <h2>Students</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="students-body"></tbody>
+      </table>
+    </div>
+
+    <!-- Load from FastAPI static mount -->
+    <script src="/static/script.js"></script>
+  </body>
+</html>
+
+
