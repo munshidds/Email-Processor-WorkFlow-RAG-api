@@ -91,3 +91,4 @@ Example response (shape):
 The **vector database** here is an in‑memory TF‑IDF matrix built from the dummy order corpus. You can later replace it with a real vector database (e.g. Pinecone, Chroma, PostgreSQL pgvector) by swapping out the `search_orders` implementation in `app.py`.
 
 
+

@@ -136,16 +136,20 @@ def search_orders(query: str, top_k: int = 3) -> OrderQueryResponse:
     best_match = scored[0] if scored else None
 
     gemini_answer: Optional[str] = None
-    if best_match is not None:
-        order = best_match.order
-        summary = (
-            f"Order ID: {order.order_id}\n"
-            f"Customer: {order.customer_name}\n"
-            f"Items: {', '.join(order.items)}\n"
-            f"Status: {order.status}\n"
-            f"Details: {order.description}"
-        )
-        gemini_answer = explain_order_status(summary, query)
+    if best_match is not None and scored:
+        # Build RAG-style context from the top_k results.
+        context_blocks = []
+        for match in scored:
+            o = match.order
+            context_blocks.append(
+                f"- Order ID: {o.order_id}\n"
+                f"  Customer: {o.customer_name}\n"
+                f"  Items: {', '.join(o.items)}\n"
+                f"  Status: {o.status}\n"
+                f"  Details: {o.description}\n"
+            )
+        context = "\n".join(context_blocks)
+        gemini_answer = explain_order_status(context, query)
 
     return OrderQueryResponse(
         query=query,
